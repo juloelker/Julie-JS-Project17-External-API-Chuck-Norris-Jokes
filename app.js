@@ -1,11 +1,11 @@
-document.querySelector(".get-jokes").addEventListener("click", getJokes);
+document.querySelector('.get-jokes').addEventListener('click', getJokes);
 
 //get jokes
 function getJokes(e) {
-  const number = document.querySelector("input").value;
+  const number = document.querySelector("input[type='number']").value;
   const xhr = new XMLHttpRequest();
   xhr.open(
-    "GET",
+    'GET',
     `http://api.icndb.com/jokes/random/${number}?limitTo=[nerdy]`,
     true
   );
@@ -13,15 +13,15 @@ function getJokes(e) {
     if (this.status === 200) {
       const response = JSON.parse(this.responseText);
       // console.log(response);
-      let output = "";
-      if (response.type === "success") {
+      let output = '';
+      if (response.type === 'success') {
         response.value.forEach(function (joke) {
-          output += `<li>${joke.joke}</li>`;
+          output += `<li>ID ${joke.id}: ${joke.joke}</li>`;
         });
       } else {
-        output += "<li>Something went wrong.</li>";
+        output += '<p>Something went wrong.</p>';
       }
-      document.querySelector(".jokes").innerHTML = output;
+      document.querySelector('.jokes').innerHTML = output;
     }
   };
   xhr.send();
